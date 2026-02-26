@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const stories = await getCollection('stories');
+---
+<BaseLayout title="Stories & Community" description="ตัวอย่างโปรเจกต์ Edge AI จากทีม PWD Vision Works และผู้ใช้">
+  <h1>Stories & Edge Projects</h1>
+  <p class="intro">
+    โปรเจกต์ตัวอย่างจากทีม PWD Vision Works และผลงานที่คัดเลือกจากผู้ใช้ (curated stories). ใน phase แรกเน้นเล่าไอเดีย
+    และโครงสร้าง pipeline บน Edge + Cloud ก่อนที่จะเปิดให้ส่งผลงานแบบ self-publish เต็มรูปแบบ.
+  </p>
+  {stories.length === 0 && <p>ยังไม่มี story เผยแพร่ในตอนนี้</p>}
+  {stories.length > 0 && (
+    <ul class="list">
+      {stories.map((story) => (
+        <li>
+          <a href={`/stories/${story.slug}/`}>
+            <strong>{story.data.title}</strong>
+            {story.data.summary && <span class="summary">{story.data.summary}</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>
+
+<style>
+  .intro { color: var(--muted); margin-bottom: 1.5rem; }
+  .list { list-style: none; padding: 0; margin: 0; }
+  .list li { margin-bottom: 0.75rem; }
+  .list a {
+    display: block;
+    padding: 0.9rem 1rem;
+    background: var(--surface);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.2s;
+  }
+  .list a:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+  .list strong { display: block; margin-bottom: 0.25rem; }
+  .summary { font-size: 0.9rem; color: var(--muted); }
+</style>
+

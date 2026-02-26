@@ -2,15 +2,26 @@
 title: "Image Filters"
 order: 3
 description: "Blur, edge detection, grayscale, sepia และการปรับสี"
-githubPath: "bs4u-cv-examples/03-filters"
-colabUrl: "https://colab.research.google.com/github/your-org/bs4u-cv-examples/blob/main/03-filters/03_filters.ipynb"
+githubPath: "chapter_03"
+colabUrl: "https://colab.research.google.com/github/pwd-vw/computer-vision/blob/main/chapter_03/colab_notebook.ipynb"
 ---
 
-## Filter พื้นฐาน
+# บทที่ 3: Face Detection พื้นฐาน
 
-การประยุกต์ convolution และการแปลงค่าพิกเซลเพื่อสร้างเอฟเฟกต์ เช่น blur, edge detection, grayscale, sepia
+เมื่อจบบทนี้ คุณจะเข้าใจ Haar Cascade Classifiers ตรวจจับใบหน้าและดวงตาในภาพ วาดกรอบรอบใบหน้าที่ตรวจจับได้ และลองสร้างแอปนับจำนวนคนในรูปกลุ่ม
 
-## สิ่งที่คุณจะได้ในบทนี้
+## Haar Cascade Classifiers
 
-- แนวคิด convolution และ kernel
-- การใช้ filter ต่างๆ และทดลองบน [เครื่องมือ Image Filter](/tools/image-filter/) ของเรา
+Haar Cascade เป็นเทคนิค Machine Learning สำหรับตรวจจับวัตถุ โดยเฉพาะใบหน้า ใช้ features แบบ Haar-like ฝึกจาก positive และ negative samples และใช้โครงสร้างแบบ Cascade เพื่อให้รันได้เร็ว ข้อดีคือเบาและไม่ต้องใช้ GPU ทำงานได้ดีในสภาพแสงปกติ ข้อจำกัดคืออาจพลาดใบหน้าที่หันด้านข้างและค่อนข้างไวต่อแสงกับมุมกล้อง
+
+## การตรวจจับใบหน้า
+
+OpenCV มีโมเดล Haar Cascade ที่ train ไว้แล้วสำหรับใบหน้าหน้าตรง ดวงตา รอยยิ้ม และโปรไฟล์ใบหน้า หลังตรวจจับได้ เราสามารถวาดกรอบรอบใบหน้า แสดงจำนวนที่พบ และบันทึกภาพได้
+
+## โปรเจกต์ปฏิบัติ: แอปนับจำนวนคนในรูปกลุ่ม
+
+ใน `colab_notebook.ipynb` มีตัวอย่างให้โหลดภาพกลุ่ม ตรวจจับใบหน้าทั้งหมด นับจำนวนคน วาดกรอบ แล้วแสดงผล ลองทำตามแล้วปรับใช้กับรูปของคุณ
+
+## สรุป
+
+ในบทนี้เราได้รู้จัก Haar Cascade วิธีตรวจจับใบหน้าและดวงตา การวาดกรอบ และการนับคนในภาพ บทถัดไปจะไปต่อที่ Object Detection

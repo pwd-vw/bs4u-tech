@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { title, description, chapter } = entry.data;
+
+// หา lesson ที่สอดคล้องกับ blog chapter นี้ เพื่อเชื่อมลิงก์ไปยังบทเรียน/Colab/GitHub
+const lessons = await getCollection('learn');
+const relatedLesson = lessons.find((lesson) => lesson.data.order === chapter);
+const lessonSlug = relatedLesson?.slug;
+const lessonColabUrl = relatedLesson?.data.colabUrl;
+const lessonGithubUrl = relatedLesson?.data.githubPath
+  ? `https://github.com/pwd-vw/computer-vision/tree/main/${relatedLesson.data.githubPath}`
+  : undefined;
+---
+<BaseLayout
+  title={title}
+  description={description || `บทความโปรโมตบทเรียนที่ ${chapter} ในหลักสูตร Computer Vision`}
+>
+  <article class="blog-post">
+    <header>
+      <p class="eyebrow">บทเรียนที่ {chapter}</p>
+      <h1>{title}</h1>
+      {description && <p class="summary">{description}</p>}
+    </header>
+    {lessonSlug && (
+      <section class="related">
+        <h2>เรียนบทที่ {chapter} แบบเต็ม</h2>
+        <p>
+          บทความนี้เชื่อมกับบทเรียนในหลักสูตรหลัก คุณสามารถเปิดดูเนื้อหาบทเรียน ตัวอย่างโค้ดบน GitHub
+          และ Notebook บน Colab ได้จากลิงก์ด้านล่าง
+        </p>
+        <div class="buttons">
+          <a href={`/learn/${lessonSlug}/`} class="btn-link primary">ไปที่บทเรียน</a>
+          {lessonGithubUrl && (
+            <a href={lessonGithubUrl} target="_blank" rel="noopener" class="btn-link">
+              ดูโค้ดบน GitHub
+            </a>
+          )}
+          {lessonColabUrl && (
+            <a href={lessonColabUrl} target="_blank" rel="noopener" class="btn-link colab">
+              Open in Colab
+            </a>
+          )}
+        </div>
+      </section>
+    )}
+    <Content />
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-post header { margin-bottom: 1.5rem; }
+  .eyebrow {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .blog-post h1 { margin: 0 0 0.5rem; }
+  .summary { margin: 0; color: var(--muted); }
+  .blog-post :global(h2) { margin-top: 1.5rem; font-size: 1.25rem; }
+  .blog-post :global(h3) { margin-top: 1.25rem; font-size: 1.05rem; }
+  .blog-post :global(ul),
+  .blog-post :global(ol) { padding-left: 1.5rem; }
+  .related { margin-bottom: 1.5rem; padding: 1rem; border-radius: 10px; background: var(--surface); border: 1px solid rgba(255,255,255,0.08); }
+  .related h2 { margin-top: 0; margin-bottom: 0.5rem; }
+  .related p { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.95rem; }
+  .buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .btn-link {
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.9rem;
+    background: transparent;
+  }
+  .btn-link.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .btn-link.colab {
+    background: #f9ab00;
+    border-color: #f9ab00;
+    color: #000;
+  }
+  .btn-link:hover {
+    text-decoration: none;
+    border-color: var(--accent-hover);
+  }
+</style>
+

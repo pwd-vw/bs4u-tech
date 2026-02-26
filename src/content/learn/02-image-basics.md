@@ -2,15 +2,30 @@
 title: "พื้นฐานภาพดิจิทัล"
 order: 2
 description: "พิกเซล แชนแนลสี และการอ่านภาพด้วยโค้ด"
-githubPath: "bs4u-cv-examples/02-image-basics"
-colabUrl: "https://colab.research.google.com/github/your-org/bs4u-cv-examples/blob/main/02-image-basics/02_image_basics.ipynb"
+githubPath: "chapter_02"
+colabUrl: "https://colab.research.google.com/github/pwd-vw/computer-vision/blob/main/chapter_02/colab_notebook.ipynb"
 ---
 
-## พิกเซลและแชนแนลสี
+# บทที่ 2: การจัดการสีและ Filters
 
-ภาพดิจิทัลประกอบด้วยตารางพิกเซล แต่ละพิกเซลมีค่าในแต่ละแชนแนล (เช่น R, G, B) การเข้าใจโครงสร้างนี้เป็นพื้นฐานของการประมวลผลภาพ
+จบบทนี้แล้ว คุณจะเข้าใจ Color spaces อย่าง RGB, HSV และ Grayscale ใช้การกรองภาพแบบ blur, sharpen และ edge detection วิเคราะห์ Histogram และปรับ contrast ได้ และลองสร้างฟิลเตอร์สไตล์ Instagram ด้วย OpenCV
 
-## สิ่งที่คุณจะได้ในบทนี้
+## Color Spaces (พื้นที่สี)
 
-- โครงสร้างภาพ (ความละเอียด แชนแนล)
-- การอ่านและแสดงภาพด้วยไลบรารีมาตรฐาน
+ภาพดิจิทัลเก็บสีเป็นตัวเลข ใน RGB แต่ละพิกเซลมีค่า Red, Green, Blue ตั้งแต่ 0 ถึง 255 เป็นระบบที่ใช้กับหน้าจอทั่วไป ใน HSV จะแยก Hue (ชนิดของสี) Saturation (ความอิ่มตัว) และ Value (ความสว่าง) ออกจากกัน ทำให้ปรับโทนสีหรือสร้างฟิลเตอร์ได้สะดวก Grayscale คือภาพขาวดำที่ลดขนาดข้อมูลลง มักใช้เป็นขั้นแรกในงาน Computer Vision หลายอย่าง
+
+## Image Filtering
+
+การกรองภาพช่วยลด noise หรือเน้นรายละเอียด Blur (เช่น Gaussian Blur, Median Blur) ทำให้ภาพนุ่มและลดจุดรบกวน Sharpen ช่วยให้ขอบและรายละเอียดเด่นขึ้น Edge detection อย่าง Canny หรือ Sobel ใช้หาขอบของวัตถุในภาพ เป็นพื้นฐานของหลายเทคนิคขั้นสูง
+
+## Histogram และ Contrast
+
+Histogram เป็นกราฟแสดงการกระจายของค่าสีในภาพ ช่วยดูว่าแสงหรือสีไปอยู่ตรงไหน การปรับ contrast คือการยืดความต่างระหว่างสีอ่อนและเข้ม ทำให้ภาพดูชัดขึ้น
+
+## โปรเจกต์ปฏิบัติ: สร้างฟิลเตอร์สไตล์ Instagram
+
+ใน `colab_notebook.ipynb` มีตัวอย่างให้ลองทำฟิลเตอร์หลายแบบ เช่น Vintage (ซีเปีย), Black & White, ปรับ Brightness/Contrast และ Blur พื้นหลัง ลองทำตามแล้วปรับค่าหรือเพิ่มฟิลเตอร์ของตัวเอง
+
+## สรุป
+
+บทนี้เราคุยกันเรื่อง Color spaces การกรองภาพแบบ blur, sharpen และ edge detection รวมถึง Histogram กับ contrast และได้ลองสร้างฟิลเตอร์แบบที่เห็นในแอปถ่ายรูป บทถัดไปจะไปต่อที่ Face Detection

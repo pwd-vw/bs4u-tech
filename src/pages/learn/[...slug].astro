@@ -13,8 +13,9 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 const { title, description, githubPath, colabUrl } = entry.data;
-const githubBase = 'https://github.com/your-org';
-const githubFull = githubPath ? `${githubBase}/${githubPath}` : null;
+const githubFull = githubPath
+  ? `https://github.com/pwd-vw/computer-vision/tree/main/${githubPath}`
+  : null;
 ---
 <BaseLayout title={title} description={description || title}>
   <article class="lesson">

@@ -5,6 +5,7 @@ interface Props {
 }
 const { title, description = "เรียนรู้และใช้บริการ Computer Vision จากง่ายไปยาก — BS4U Tech" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const GA_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 <!doctype html>
 <html lang="th">
@@ -15,6 +16,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
     <title>{title} | BS4U Tech — Computer Vision</title>
+    {GA_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+        <script>
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}
+        </script>
+      </>
+    )}
     <!-- Google AdSense: replace with your publisher ID after approval -->
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script> -->
   </head>
@@ -25,8 +37,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <ul>
           <li><a href="/">หน้าแรก</a></li>
           <li><a href="/learn/">หลักสูตร</a></li>
+          <li><a href="/tutorials/">Tutorials</a></li>
           <li><a href="/tools/">เครื่องมือ</a></li>
-          <li><a href="https://blog.bs4u-tech.com" target="_blank" rel="noopener">บล็อก</a></li>
+          <li><a href="/blog/">บล็อก</a></li>
+          <li><a href="/stories/">Stories</a></li>
         </ul>
       </nav>
     </header>
@@ -35,7 +49,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </main>
     <footer class="site-footer">
       <div class="container">
-        <p>© {new Date().getFullYear()} BS4U Tech — Computer Vision learning & tools. <a href="https://blog.bs4u-tech.com">blog.bs4u-tech.com</a></p>
+        <p>© {new Date().getFullYear()} BS4U Tech — Computer Vision learning & tools. <a href="/blog/">ดูบทความล่าสุด</a></p>
       </div>
     </footer>
   </body>

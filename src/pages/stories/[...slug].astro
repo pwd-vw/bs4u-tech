@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const stories = await getCollection('stories');
+  return stories.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { title, summary, githubUrl } = entry.data;
+---
+<BaseLayout
+  title={title}
+  description={summary || 'ตัวอย่างโปรเจกต์ Edge AI จาก community'}
+>
+  <article class="story">
+    <header>
+      <h1>{title}</h1>
+      {summary && <p class="summary">{summary}</p>}
+      {githubUrl && (
+        <p class="links">
+          <a href={githubUrl} target="_blank" rel="noopener">ดูโค้ดที่เกี่ยวข้องบน GitHub</a>
+        </p>
+      )}
+    </header>
+    <Content />
+  </article>
+</BaseLayout>
+
+<style>
+  .story header { margin-bottom: 1.5rem; }
+  .story h1 { margin: 0 0 0.5rem; }
+  .summary { margin: 0 0 0.5rem; color: var(--muted); }
+  .links a { font-size: 0.9rem; }
+  .story :global(h2) { margin-top: 1.5rem; font-size: 1.25rem; }
+  .story :global(p) { margin-bottom: 0.75rem; }
+</style>
+

@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => a.data.chapter - b.data.chapter);
+---
+<BaseLayout title="บล็อก" description="บทความโปรโมตและสรุปหลักสูตร Computer Vision สำหรับแต่ละบทเรียน">
+  <h1>บล็อก Computer Vision</h1>
+  <p class="intro">
+    บทความแต่ละตอนสรุปแนวคิดสำคัญของบทเรียนที่ 1–8 พร้อมไอเดียโปรเจกต์และการประยุกต์ใช้กับ Raspberry Pi และ Edge AI
+  </p>
+  <ol class="post-list">
+    {posts.map((post) => (
+      <li>
+        <a href={`/blog/${post.slug}/`}>
+          <span class="chapter">บทที่ {post.data.chapter}</span>
+          <div>
+            <strong>{post.data.title}</strong>
+            {post.data.description && <span class="desc">{post.data.description}</span>}
+          </div>
+        </a>
+      </li>
+    ))}
+  </ol>
+</BaseLayout>
+
+<style>
+  .intro { color: var(--muted); margin-bottom: 1.5rem; }
+  .post-list { list-style: none; padding: 0; margin: 0; }
+  .post-list li { margin-bottom: 0.75rem; }
+  .post-list a {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.2s;
+  }
+  .post-list a:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+  .chapter {
+    flex-shrink: 0;
+    min-width: 4.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .post-list strong { display: block; margin-bottom: 0.25rem; }
+  .desc { font-size: 0.9rem; color: var(--muted); }
+</style>
+

@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const tutorials = (await getCollection('tutorials')).sort((a, b) => a.data.order - b.data.order);
+const raspberryPi5 = tutorials.filter((t) => t.data.device === 'raspberry-pi5');
+const radxa = tutorials.filter((t) => t.data.device === 'radxa-dragon-q6a');
+---
+<BaseLayout title="Tutorials" description="Edge Computing, Raspberry Pi 5 และ Radxa DRAGON Q6A สำหรับ Computer Vision">
+  <h1>Tutorials — Edge Computing & Devices</h1>
+  <p class="intro">
+    แนวทางปฏิบัติสำหรับตั้งค่าอุปกรณ์ Edge (Raspberry Pi 5 และ Radxa DRAGON Q6A) เพื่อนำหลักสูตร Computer Vision
+    ไปใช้งานจริงในภาคสนาม และเชื่อมต่อกับเว็บ <code>bs4u-tech.com</code>.
+  </p>
+
+  {raspberryPi5.length > 0 && (
+    <section class="group">
+      <h2>Raspberry Pi 5</h2>
+      <ol>
+        {raspberryPi5.map((item) => (
+          <li>
+            <a href={`/tutorials/${item.slug}/`}>
+              <strong>{item.data.title}</strong>
+              {item.data.description && <span class="desc">{item.data.description}</span>}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  {radxa.length > 0 && (
+    <section class="group">
+      <h2>Radxa DRAGON Q6A</h2>
+      <ol>
+        {radxa.map((item) => (
+          <li>
+            <a href={`/tutorials/${item.slug}/`}>
+              <strong>{item.data.title}</strong>
+              {item.data.description && <span class="desc">{item.data.description}</span>}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .intro { color: var(--muted); margin-bottom: 1.5rem; }
+  .group { margin-bottom: 2rem; }
+  .group h2 { margin-bottom: 0.75rem; }
+  .group ol { list-style: none; padding: 0; margin: 0; }
+  .group li { margin-bottom: 0.5rem; }
+  .group a {
+    display: block;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.2s;
+  }
+  .group a:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+  .group strong { display: block; margin-bottom: 0.25rem; }
+  .desc { font-size: 0.9rem; color: var(--muted); }
+</style>
+
