@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const lessons = (await getCollection('learn')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="หลักสูตร" description="ลำดับบทเรียน Computer Vision จากง่ายไปยาก — BS4U Tech">
+  <h1>หลักสูตร Computer Vision</h1>
+  <p class="intro">เรียนตามลำดับจากง่ายไปยาก แต่ละบทมีคำอธิบาย ลิงก์ตัวอย่างโค้ดบน GitHub และปุ่มเปิด Notebook บน Google Colab</p>
+  <ol class="lesson-list">
+    {lessons.map((lesson) => (
+      <li>
+        <a href={`/learn/${lesson.slug}/`}>
+          <span class="order">{lesson.data.order}</span>
+          <div>
+            <strong>{lesson.data.title}</strong>
+            {lesson.data.description && <span class="desc">{lesson.data.description}</span>}
+          </div>
+        </a>
+      </li>
+    ))}
+  </ol>
+</BaseLayout>
+
+<style>
+  .intro { color: var(--muted); margin-bottom: 1.5rem; }
+  .lesson-list { list-style: none; padding: 0; margin: 0; }
+  .lesson-list li { margin-bottom: 0.5rem; }
+  .lesson-list a { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: var(--surface); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); transition: border-color 0.2s; }
+  .lesson-list a:hover { border-color: var(--accent); text-decoration: none; }
+  .order { flex-shrink: 0; width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; background: var(--accent); color: #fff; border-radius: 6px; font-weight: 700; }
+  .lesson-list strong { display: block; margin-bottom: 0.25rem; }
+  .desc { font-size: 0.9rem; color: var(--muted); }
+</style>

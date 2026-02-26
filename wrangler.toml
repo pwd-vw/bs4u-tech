@@ -1,0 +1,6 @@
+# Cloudflare Pages: connect this project in dashboard or use direct upload:
+# npx wrangler pages deploy dist --project-name=bs4u-tech
+# For Pages Functions, place handlers under ./functions
+name = "bs4u-tech"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"

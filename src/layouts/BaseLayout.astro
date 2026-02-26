@@ -1,0 +1,66 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "เรียนรู้และใช้บริการ Computer Vision จากง่ายไปยาก — BS4U Tech" } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <title>{title} | BS4U Tech — Computer Vision</title>
+    <!-- Google AdSense: replace with your publisher ID after approval -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script> -->
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container">
+        <a href="/" class="logo">BS4U Tech</a>
+        <ul>
+          <li><a href="/">หน้าแรก</a></li>
+          <li><a href="/learn/">หลักสูตร</a></li>
+          <li><a href="/tools/">เครื่องมือ</a></li>
+          <li><a href="https://blog.bs4u-tech.com" target="_blank" rel="noopener">บล็อก</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p>© {new Date().getFullYear()} BS4U Tech — Computer Vision learning & tools. <a href="https://blog.bs4u-tech.com">blog.bs4u-tech.com</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #0f0f12;
+    --surface: #1a1a20;
+    --text: #e8e8ec;
+    --muted: #888;
+    --accent: #6366f1;
+    --accent-hover: #818cf8;
+  }
+  * { box-sizing: border-box; }
+  html { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: var(--accent-hover); text-decoration: underline; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+  .site-header { background: var(--surface); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .site-header .container { display: flex; align-items: center; justify-content: space-between; padding-top: 0.75rem; padding-bottom: 0.75rem; }
+  .site-header .logo { font-weight: 700; font-size: 1.25rem; }
+  .site-header ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.5rem; }
+  main { flex: 1; padding: 2rem 0; }
+  .site-footer { background: var(--surface); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 0; color: var(--muted); font-size: 0.9rem; }
+  .site-footer a { color: var(--muted); }
+</style>

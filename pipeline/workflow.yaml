@@ -1,0 +1,22 @@
+# ตัวอย่าง Google Cloud Workflow — เรียก Cloud Function เพื่อสร้างและเผยแพร่เนื้อหา
+# Deploy: gcloud workflows deploy content-pipeline --source=.
+# Trigger: Cloud Scheduler เรียก workflow ตาม cron (เช่น 0 8 * * * = ทุกวัน 08:00)
+
+main:
+  steps:
+    - get_next_topic:
+        assign:
+          - topic: "Computer Vision: Image Filters ในทางปฏิบัติ"
+          - target: "blogger"
+    - call_publish_function:
+        call: http.post
+        args:
+          url: ${"https://REGION-PROJECT.cloudfunctions.net/publishContent"}
+          body:
+            topic: ${topic}
+            target: ${target}
+          auth:
+            type: OIDC
+        result: publish_result
+    - done:
+        return: ${publish_result.body}

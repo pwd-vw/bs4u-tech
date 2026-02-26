@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="หน้าแรก" description="เรียนรู้และใช้บริการ Computer Vision จากง่ายไปยาก — BS4U Tech">
+  <article class="hero">
+    <h1>Computer Vision</h1>
+    <p class="lead">เรียนรู้และฝึกปฏิบัติจากพื้นฐานไปจนถึงการประมวลผลภาพขั้นสูง พร้อมเครื่องมือปรับภาพด้วย filter บนเว็บ</p>
+    <div class="cta">
+      <a href="/learn/" class="btn btn-primary">เริ่มเรียนหลักสูตร</a>
+      <a href="/tools/image-filter/" class="btn btn-secondary">ใช้เครื่องมือ Image Filter</a>
+    </div>
+  </article>
+  <section class="cards">
+    <a href="/learn/" class="card">
+      <h2>หลักสูตร</h2>
+      <p>บทเรียนเรียงจากง่ายไปยาก: Intro → Image basics → Filters → Detection → Deep Learning</p>
+    </a>
+    <a href="/tools/" class="card">
+      <h2>เครื่องมือ</h2>
+      <p>อัพโหลดรูป เลือก filter (blur, edge, grayscale, sepia ฯลฯ) แล้วดาวน์โหลดผลลัพธ์</p>
+    </a>
+    <a href="https://blog.bs4u-tech.com" target="_blank" rel="noopener" class="card">
+      <h2>บล็อก</h2>
+      <p>บทความและอัปเดตที่ blog.bs4u-tech.com</p>
+    </a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { text-align: center; padding: 2rem 0; }
+  .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .lead { font-size: 1.15rem; color: var(--muted); max-width: 42ch; margin: 0 auto 1.5rem; }
+  .cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn { padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; display: inline-block; }
+  .btn-primary { background: var(--accent); color: #fff; border: none; }
+  .btn-primary:hover { background: var(--accent-hover); text-decoration: none; }
+  .btn-secondary { background: var(--surface); border: 1px solid rgba(255,255,255,0.15); }
+  .btn-secondary:hover { text-decoration: none; border-color: var(--accent); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .card { background: var(--surface); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s; }
+  .card:hover { border-color: var(--accent); text-decoration: none; }
+  .card h2 { margin: 0 0 0.5rem; font-size: 1.2rem; }
+  .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+</style>

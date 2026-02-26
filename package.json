@@ -1,0 +1,24 @@
+{
+  "name": "bs4u-tech-cv",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.3.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "cf:deploy": "wrangler pages deploy dist --project-name=bs4u-tech"
+  },
+  "dependencies": {
+    "@cf-wasm/photon": "^0.3.4",
+    "astro": "^4.16.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "wrangler": "^3.0.0"
+  }
+}

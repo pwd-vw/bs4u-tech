@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="เครื่องมือ" description="เครื่องมือ Computer Vision — อัพโหลดรูปและใช้ filter บนเว็บ">
+  <h1>เครื่องมือ</h1>
+  <p class="intro">เลือกเครื่องมือด้านล่าง เพื่ออัพโหลดรูปและประมวลผลบนเซิร์ฟเวอร์ของเรา (ใช้ Photon WASM บน Cloudflare)</p>
+  <ul class="tool-list">
+    <li>
+      <a href="/tools/image-filter/">
+        <h2>Image Filter</h2>
+        <p>อัพโหลดรูป เลือก filter (blur, edge, grayscale, sepia ฯลฯ) แล้วดาวน์โหลดผลลัพธ์</p>
+      </a>
+    </li>
+  </ul>
+</BaseLayout>
+
+<style>
+  .intro { color: var(--muted); margin-bottom: 1.5rem; }
+  .tool-list { list-style: none; padding: 0; margin: 0; }
+  .tool-list a { display: block; padding: 1.5rem; background: var(--surface); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); transition: border-color 0.2s; }
+  .tool-list a:hover { border-color: var(--accent); text-decoration: none; }
+  .tool-list h2 { margin: 0 0 0.5rem; font-size: 1.25rem; }
+  .tool-list p { margin: 0; color: var(--muted); }
+</style>
